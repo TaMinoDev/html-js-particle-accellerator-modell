@@ -22,5 +22,4 @@ Your options are:
 - the x and y inputs let you controll the position of the particle without resetting the accellertion and velocity
 - "Load Coords" will load the coordinates of the particle in the moment your pressed the button (plus latency)
 - "Apply Coords" will apply the new position data in the next "tick"
-Want to experiment now? [https://taminodev.github.io/html-js-particle-accellerator-modell/](https://taminodev.github.io/html-js-particle-accellerator-modell/
-)
+Want to experiment now? [https://taminodev.github.io/html-js-particle-accellerator-modell/](https://taminodev.github.io/html-js-particle-accellerator-modell/)
