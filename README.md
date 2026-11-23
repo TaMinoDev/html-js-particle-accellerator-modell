@@ -32,4 +32,5 @@ Your options are:
 - if the particle goes like crazy fast, and you can't see it, try these things to make sure it's not a rendering bug:
   - If your accelleration is gigantig => most likly not a bug
   - If your position is off-screen => very surely a bug
+---
 Want to experiment now? [https://taminodev.github.io/html-js-particle-accellerator-modell/](https://taminodev.github.io/html-js-particle-accellerator-modell/index.html)
