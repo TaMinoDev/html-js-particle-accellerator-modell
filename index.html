@@ -39,6 +39,8 @@
             <br>
             <label>Show Trail? </label><input type="checkbox" id="trailInput" checked>
             <br>
+            <label>Simple Mode? </label><input type="checkbox" id="simpleInput">
+            <br>
             <label>Mode</label><select id="modeSelector"><option value="animation">requestAnimationFrame</option><option value="timeout">setTimeout</option></select><input id="bufferInput" type="number" placeholder="timebuffer in ms" value="50">
             <button onclick="applyMode()">Apply Mode Stettings</button>
             <br>
@@ -77,6 +79,8 @@
         let vy = 0; // velocity Y
         let ax = 0; // accelleration X
         let ay = 0; // accelleration Y
+        let rfx = 0;
+        let rfy = 0;
         let m = 1; // mass
         let dt = 0.016 // Delta-Time (Time since the last Frame, with 60FPS 0.016)
         let contin = true;
@@ -213,6 +217,13 @@
                 trail.shift();
             }
 
+            if(document.getElementById('simpleInput').checked === true) {
+                ax = Math.round(ax);
+                ay = Math.round(ay);
+                vx = Math.round(vx);
+                vy = Math.round(vy);
+            }
+
             draw();
 
             if(contin === true) {
@@ -235,8 +246,15 @@
         }
 
         function FORCE(fx,fy) {
-            ax += fx/m;
-            ay += fy/m;
+            rfx += fx;
+            rfy += fy;
+            if(document.getElementById('simpleInput').checked === false) {
+                ax += fx/m;
+                ay += fy/m;
+            } else {
+                ax = rfx;
+                ay = rfy;
+            }
         }
 
         function draw() {
