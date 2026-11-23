@@ -22,4 +22,14 @@ Your options are:
 - the x and y inputs let you controll the position of the particle without resetting the accellertion and velocity
 - "Load Coords" will load the coordinates of the particle in the moment your pressed the button (plus latency)
 - "Apply Coords" will apply the new position data in the next "tick"
+- It's to fast to catch with the eye? press spacebar to pause and unpause the simulation
+---
+### Full-Relase
+- In the new Full-Release you can now see the **tps** (ticks per senconds) and **FPS** frames per second
+- You can also see the X and Y coords of the particle
+
+### Not a Bug or Glitch
+- if the particle goes like crazy fast, and you can't see it, try these things to make sure it's not a rendering bug:
+  - If your accelleration is gigantig => most likly not a bug
+  - If your position is off-screen => very surely a bug
 Want to experiment now? [https://taminodev.github.io/html-js-particle-accellerator-modell/](https://taminodev.github.io/html-js-particle-accellerator-modell/index.html)
