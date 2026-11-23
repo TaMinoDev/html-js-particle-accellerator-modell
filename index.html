@@ -30,6 +30,10 @@
         details, summary {
             cursor: pointer;
         }
+
+        label {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -171,15 +175,15 @@
         }
 
         function updateDisplay() {
-            document.getElementById('velocityOutput').innerText = `Velocity:\nX: ${vx}\nY: ${vy}`;
-            document.getElementById('accellerationOutput').innerText = `Accelleration:\nX: ${ax}\nY: ${ay}`;
-            document.getElementById('coordsOutput').innerText = `Coords:\nX: ${pos[0]}\nY:${pos[1]}`;
+            document.getElementById('velocityOutput').innerHTML = `<b>Velocity:</b>\nX: ${vx}\nY: ${vy}`;
+            document.getElementById('accellerationOutput').innerHTML = `<b>Accelleration:</b>\nX: ${ax}\nY: ${ay}`;
+            document.getElementById('coordsOutput').innerHTML = `<b>Coords:</b>\nX: ${pos[0]}\nY:${pos[1]}`;
             if(mode === 'animation') {
                 tps = 60;
             } else if(mode === 'timeout') {
                 tps = 1000/buffer;
             }
-            document.getElementById('tpsOutput').innerText = `tps: ${tps}\nfps: ${fps}`;
+            document.getElementById('tpsOutput').innerHTML = `<b>tps:</b> ${tps}\n<b>fps:</b> ${fps}`;
         }
 
         const times = [];
