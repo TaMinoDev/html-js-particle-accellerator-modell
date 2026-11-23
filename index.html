@@ -14,6 +14,9 @@
             border: 1px solid black;
             background-color: whitesmoke;
             padding: 5px;
+        }
+
+        .controll-room .panel {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
@@ -27,40 +30,43 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <div class="controll-room">
-        <div class="input-area">
-            <input id="forceXinput" type="number" placeholder="Force for X"><input id="forceYinput" type="number" placeholder="Force for Y">
-            <br>
-            <button onclick="applyForce()">Apply Forces</button>
-            <br>
-            <input id="velocityXinput" type="number" placeholder="Set Velocity for X"><input id="velocityYinput" type="number" placeholder="Set Velocity for Y">
-            <br>
-            <button onclick="applyVelocity()">Apply Velocity</button>
-            <br>
-            <label>Show Trail? </label><input type="checkbox" id="trailInput" checked>
-            <br>
-            <label>Simple Mode? </label><input type="checkbox" id="simpleInput">
-            <br>
-            <label>Mode</label><select id="modeSelector"><option value="animation">requestAnimationFrame</option><option value="timeout">setTimeout</option></select><input id="bufferInput" type="number" placeholder="timebuffer in ms" value="50">
-            <button onclick="applyMode()">Apply Mode Stettings</button>
-            <br>
-            <input id="xInput" type="number" placeholder="x coords"><input id="yInput" type="number" placeholder="y coords"><button onclick="applyCords()">Appley Coords</button><button onclick="loadCords()">Load Cords</button>
-        </div>
-        <div class="output-area">
-            <div>
+    <details class="controll-room">
+        <summary>Controllroom</summary>
+        <div class="panel">
+            <div class="input-area">
+                <input id="forceXinput" type="number" placeholder="Force for X"><input id="forceYinput" type="number" placeholder="Force for Y">
                 <br>
-                <span id="tpsOutput"></span>
+                <button onclick="applyForce()">Apply Forces</button>
                 <br>
-                <span id="coordsOutput"></span>
+                <input id="velocityXinput" type="number" placeholder="Set Velocity for X"><input id="velocityYinput" type="number" placeholder="Set Velocity for Y">
+                <br>
+                <button onclick="applyVelocity()">Apply Velocity</button>
+                <br>
+                <label>Show Trail? </label><input type="checkbox" id="trailInput" checked>
+                <br>
+                <label>Simple Mode? </label><input type="checkbox" id="simpleInput">
+                <br>
+                <label>Mode</label><select id="modeSelector"><option value="animation">requestAnimationFrame</option><option value="timeout">setTimeout</option></select><input id="bufferInput" type="number" placeholder="timebuffer in ms" value="50">
+                <button onclick="applyMode()">Apply Mode Stettings</button>
+                <br>
+                <input id="xInput" type="number" placeholder="x coords"><input id="yInput" type="number" placeholder="y coords"><button onclick="applyCords()">Appley Coords</button><button onclick="loadCords()">Load Cords</button>
             </div>
-            <div>
-                <br>
-                <span id="velocityOutput"></span>
-                <br>
-                <span id="accellerationOutput"></span>
+            <div class="output-area">
+                <div>
+                    <br>
+                    <span id="tpsOutput"></span>
+                    <br>
+                    <span id="coordsOutput"></span>
+                </div>
+                <div>
+                    <br>
+                    <span id="velocityOutput"></span>
+                    <br>
+                    <span id="accellerationOutput"></span>
+                </div>
             </div>
         </div>
-    </div>
+    </details>
     <script>
         const canvas = document.getElementById('canvas');
         /** @type CanvasRenderingContext2D */
@@ -218,10 +224,7 @@
             }
 
             if(document.getElementById('simpleInput').checked === true) {
-                ax = Math.round(ax);
-                ay = Math.round(ay);
-                vx = Math.round(vx);
-                vy = Math.round(vy);
+                simplify();
             }
 
             draw();
@@ -235,7 +238,16 @@
             }
         }
 
+        function simplify() {
+            [ax,ay,vx,vy] = [ax,ay,vx,vy].map(item => Math.round(item));
+            pos[0] = Math.round(pos[0]);
+            pos[1] = Math.round(pos[1]);
+        }
+
         let inter = setInterval(() => {
+            if(document.getElementById('simpleInput').checked === true) {
+                simplify();
+            }
             updateDisplay();
         },2000);
 
