@@ -18,6 +18,11 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
+
+        .output-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
     </style>
 </head>
 <body>
@@ -40,10 +45,18 @@
             <input id="xInput" type="number" placeholder="x coords"><input id="yInput" type="number" placeholder="y coords"><button onclick="applyCords()">Appley Coords</button><button onclick="loadCords()">Load Cords</button>
         </div>
         <div class="output-area">
-            <br>
-            <span id="velocityOutput"></span>
-            <br>
-            <span id="accellerationOutput"></span>
+            <div>
+                <br>
+                <span id="tpsOutput"></span>
+                <br>
+                <span id="coordsOutput"></span>
+            </div>
+            <div>
+                <br>
+                <span id="velocityOutput"></span>
+                <br>
+                <span id="accellerationOutput"></span>
+            </div>
         </div>
     </div>
     <script>
@@ -72,6 +85,8 @@
         let mode = 'animation';
         let buffer = 50;
         let showTrail = true;
+        let tps = 0;
+        let fps = 0;
 
         document.addEventListener('keydown', function (e) {
             if(e.key === ' ') {
@@ -144,6 +159,28 @@
         function updateDisplay() {
             document.getElementById('velocityOutput').innerText = `Velocity:\nX: ${vx}\nY: ${vy}`;
             document.getElementById('accellerationOutput').innerText = `Accelleration:\nX: ${ax}\nY: ${ay}`;
+            document.getElementById('coordsOutput').innerText = `Coords:\nX: ${pos[0]}\nY:${pos[1]}`;
+            if(mode === 'animation') {
+                tps = 60;
+            } else if(mode === 'timeout') {
+                tps = 1000/buffer;
+            }
+            document.getElementById('tpsOutput').innerText = `tps: ${tps}\nfps: ${fps}`;
+        }
+
+        const times = [];
+
+        function refreshLoop() {
+            window.requestAnimationFrame(() => {
+                const now = performance.now();
+                while (times.length > 0 && times[0] <= now - 1000) {
+                times.shift();
+                }
+                times.push(now);
+                fps = times.length;
+                
+                refreshLoop();
+            });
         }
 
         function tick() {
@@ -219,6 +256,7 @@
         }
 
         set();
+        refreshLoop();
     </script>
 </body>
 </html>
